@@ -1,2 +1,1 @@
-# Freecodecamp-Sudoku-Solver-2
-My secnd attempt at Sudoku Solver project.
+# [Sudoku Solver](https://www.freecodecamp.org/learn/quality-assurance/quality-assurance-projects/sudoku-solver)
