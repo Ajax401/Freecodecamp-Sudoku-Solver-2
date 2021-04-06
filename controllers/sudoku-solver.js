@@ -63,7 +63,7 @@ class SudokuSolver {
     }
         
   let myObj = {valid:false,conflict:[]};
-  
+  console.log(this.checkColPlacement(puzzleString,row,column,value));
   if(this.checkRowPlacement(puzzleString,row,column,value) !== true){
     myObj.conflict.push('row');
   }
@@ -97,13 +97,12 @@ class SudokuSolver {
     }
     row = row.toUpperCase();
     let currentRow = lookMe[row];
-   
-   
-     if(multiArray[currentRow].includes(value)){
-       return false;
-    
-     }
-   
+    let myCol = column -1;
+    let currentIndexValue = multiArray[currentRow].indexOf(value);
+    let expectedIndexValue = myCol;
+    if(currentIndexValue != expectedIndexValue&&multiArray[currentRow].includes(value)){
+      return false;
+    }
    return true;
 
   }
@@ -119,11 +118,21 @@ class SudokuSolver {
       }
       multiArray[nextRow].push(puzzleString[i]);
     }
+    row = row.toUpperCase();
+    let currentRow = lookMe[row];
     let myCol = column -1;
+    let currentIndexValue;
       for(let i = 0; i < multiArray.length;i++){
-        if(multiArray[i][myCol] == value){
-          return false;
-        }
+          if(multiArray[i][myCol].indexOf(value) !== -1){
+          currentIndexValue = i;
+          console.log(currentIndexValue)
+          if(currentIndexValue != currentRow){
+            if(multiArray[i][myCol] === value){
+             return false
+           }
+          }
+          }
+        
       }
       return true;
   }
@@ -144,11 +153,17 @@ class SudokuSolver {
     let currentRow = lookMe[row];
     let areaStartRow = parseInt(currentRow / 3) * 3;
     let areaStartCol = parseInt(myCol/ 3) * 3;
-    for (let i = areaStartRow; i < areaStartRow + 3; i++) {
+    for (let i = areaStartRow; i <  areaStartRow + 3; i++) {
       for (let j = areaStartCol; j < areaStartCol + 3; j++) {
-        if (multiArray[i][j] == value) {
+        
+          if(multiArray[currentRow][myCol].indexOf(value)!== -1){
+            return true
+          }
+        
+           if (multiArray[i][j] == value) {
           return false;
         }
+        
       }
     }
     
@@ -275,6 +290,7 @@ class SudokuSolver {
 }
 
 module.exports = SudokuSolver;
+  
   
 
   
